@@ -1,0 +1,251 @@
+%-------------------------
+% Resume in Latex
+% Author : Jake Gutierrez
+% Based off of: https://github.com/sb2nov/resume
+% License : MIT
+%------------------------
+
+% https://www.overleaf.com/latex/templates/jakes-resume/syzfjbzwjncs
+
+\documentclass[letterpaper,11pt]{article}
+
+\usepackage{latexsym}
+\usepackage[empty]{fullpage}
+\usepackage{titlesec}
+\usepackage{marvosym}
+\usepackage[usenames,dvipsnames]{color}
+\usepackage{verbatim}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+\usepackage{fancyhdr}
+\usepackage[english]{babel}
+\usepackage{tabularx}
+\input{glyphtounicode}
+\usepackage{fontawesome} % for icons like external link
+
+
+
+
+%----------FONT OPTIONS----------
+% sans-serif
+% \usepackage[sfdefault]{FiraSans}
+% \usepackage[sfdefault]{roboto}
+% \usepackage[sfdefault]{noto-sans}
+% \usepackage[default]{sourcesanspro}
+
+% serif
+% \usepackage{CormorantGaramond}
+% \usepackage{charter}
+
+
+\pagestyle{fancy}
+\fancyhf{} % clear all header and footer fields
+\fancyfoot{}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+
+% Adjust margins
+\addtolength{\oddsidemargin}{-0.5in}
+\addtolength{\evensidemargin}{-0.5in}
+\addtolength{\textwidth}{1in}
+\addtolength{\topmargin}{-.5in}
+\addtolength{\textheight}{1.0in}
+
+\urlstyle{same}
+
+\raggedbottom
+\raggedright
+\setlength{\tabcolsep}{0in}
+
+% Sections formatting
+\titleformat{\section}{
+  \vspace{-4pt}\scshape\raggedright\large
+}{}{0em}{}[\color{black}\titlerule \vspace{-5pt}]
+
+% Ensure that generate pdf is machine readable/ATS parsable
+\pdfgentounicode=1
+
+%-------------------------
+% Custom commands
+\newcommand{\resumeItem}[1]{
+  \item\small{
+    {#1 \vspace{-2pt}}
+  }
+}
+
+\newcommand{\resumeSubheading}[4]{
+  \vspace{-2pt}\item
+    \begin{tabular*}{0.97\textwidth}[t]{l@{\extracolsep{\fill}}r}
+      \textbf{#1} & #2 \\
+      \textit{\small#3} & \textit{\small #4} \\
+    \end{tabular*}\vspace{-7pt}
+}
+
+\newcommand{\resumeSubSubheading}[2]{
+    \item
+    \begin{tabular*}{0.97\textwidth}{l@{\extracolsep{\fill}}r}
+      \textit{\small#1} & \textit{\small #2} \\
+    \end{tabular*}\vspace{-7pt}
+}
+
+\newcommand{\resumeProjectHeading}[2]{
+    \item
+    \begin{tabular*}{0.97\textwidth}{l@{\extracolsep{\fill}}r}
+      \small#1 & #2 \\
+    \end{tabular*}\vspace{-7pt}
+}
+
+\newcommand{\resumeSubItem}[1]{\resumeItem{#1}\vspace{-4pt}}
+
+\renewcommand\labelitemii{$\vcenter{\hbox{\tiny$\bullet$}}$}
+
+\newcommand{\resumeSubHeadingListStart}{\begin{itemize}[leftmargin=0.15in, label={}]}
+\newcommand{\resumeSubHeadingListEnd}{\end{itemize}}
+\newcommand{\resumeItemListStart}{\begin{itemize}}
+\newcommand{\resumeItemListEnd}{\end{itemize}\vspace{-5pt}}
+
+%-------------------------------------------
+%%%%%%  RESUME STARTS HERE  %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{document}
+
+
+%-----------HEADER-----------
+\begin{center}
+    \textbf{\Huge Himanshu Singh} \\ \vspace{1pt}
+    \small +91 9129491699 \textbar{} \href{mailto:dev88himanshu@gmail.com}{{dev88himanshu@gmail.com}}    \\ 
+    \small  
+    \href{https://www.linkedin.com/in/himanshups1/}{\underline{\textcolor{blue}{\textbf{LinkedIn}{ \faExternalLink}}}} \,\textbar{}\, 
+    \href{https://drive.google.com/file/d/1X2s_mfXOKdozh9_wLCA6aEJ7sXdkxCG3/view?usp=sharing}{\underline{\textcolor{blue}{\textbf{Portfolio}{ \faExternalLink}}}}
+\end{center}
+%-------------------------------------------
+
+
+%-----------PROJECTS-----------
+\section{Professional Summary}
+\begin{itemize}[leftmargin=0.15in, label={}]
+  \item 
+  \textbf{Azure Certified Data Engineer} with \textbf{4+ years of experience} in building and optimizing \textbf{ETL/ELT pipelines}, \textbf{data warehouse modernization}, and \textbf{cloud data lakehouse solutions} on the \textbf{Azure ecosystem} (\textbf{ADF, Databricks, Synapse, ADLS}). Skilled in \textbf{data modeling, data governance, CI/CD with Azure DevOps}, and applying \textbf{performance optimization techniques} that deliver up to \textbf{60\% efficiency improvements}. Proficient in \textbf{Python, SQL, Shell Scripting, Spark, Hive, Impala, and MapReduce}, with proven success in processing \textbf{multi-terabyte datasets} for \textbf{Fortune 100 Healthcare and Retail clients}. Experienced in enabling \textbf{scalable, secure, and production-ready analytics platforms}.
+  %\textbf{Azure Certified Data Engineer} with \textbf{4 years of experience} in designing and optimizing \textbf{cloud-based data pipelines}, \textbf{ETL/ELT workflows}, and \textbf{data warehouse solutions} primarily on the \textbf{Azure ecosystem} (\textbf{ADF, Databricks, Synapse, ADLS}), with additional expertise in \textbf{On-Premise Big Data platforms}. Proficient in \textbf{Python, SQL, Shell Scripting, Spark, Hive, Impala, and MapReduce}, with proven success in processing \textbf{multi-terabyte datasets} for \textbf{Fortune 100 clients} across \textbf{Healthcare and Retail domains}. Skilled in \textbf{data modeling}, \textbf{data governance}, and applying \textbf{performance optimization techniques} that deliver up to \textbf{60\% efficiency improvements}, enabling scalable and reliable enterprise analytics.
+\end{itemize}
+%-------------------------------------------
+
+
+%-----------PROGRAMMING SKILLS-----------
+\section{Technical Skills}
+ \begin{itemize}[leftmargin=0.15in, label={}]
+    \small{\item{
+     \textbf{Cloud \& Data Engineering}{:\hspace{0.19cm} ADF, Databricks, Azure Synapse, ADLS/Blob Storage, Data Lakehouse} \\
+     \textbf{Pipelines \& Warehousing}{:\hspace{0.6cm}ETL/ELT, Data Modelling, Data Warehousing OLAP/OLTP} \\
+     \textbf{Programming}{:\hspace{2.52cm}  Python, SQL, Shell Scripting} \\
+     \textbf{Big Data}{:\hspace{3.35cm} Hadoop, Spark, PySpark, RDD, Spark Streaming, Hive, Impala, MapReduce, YARN} \\
+     \textbf{Orchestration \& Workflow}{:\hspace{0.25cm} Tivoli Workload Scheduler (TWS), Sqoop, Apache Airflow, Azure DevOps}\\
+	   \textbf{Developer Tools}{:\hspace{2.10cm} ServiceNow, Git, WinSCP, PuTTY}\\
+     \textbf{GenAI}{:\hspace{3.8cm} LangChain, LlamaIndex, HuggingFace } \\
+     \textbf{Familiar}{:\hspace{3.5cm} Django (Rest API), MySQL, PostgreSQL, ChromaDB} \\
+    }}
+ \end{itemize}
+%-------------------------------------------
+
+
+
+%-----------EXPERIENCE-----------
+\section{Experience}
+  \resumeSubHeadingListStart
+
+  \resumeSubheading
+  {TATA CONSULTANCY SERVICES}{KAISER PERMANENTE (Mar 2023 -- Present)}
+  {Data Engineer}{Hyderabad, India}
+
+  \resumeItemListStart
+    \resumeItem{Designed and optimized \textbf{enterprise-scale data pipelines} using \textbf{Azure Data Factory (ADF)} to ingest and orchestrate \textbf{20TB+ healthcare datasets}, integrating them into \textbf{ADLS} and \textbf{Databricks Delta Lake} for advanced analytics and reporting.}
+    \resumeItem{Automated \textbf{ETL/ELT workflows} with \textbf{ADF}, \textbf{ADLS}, \textbf{Databricks}, and \textbf{PySpark}, improving processing efficiency by \textbf{60\%} and enabling \textbf{real-time data availability}.}
+    \resumeItem{Delivered actionable \textbf{business insights} to stakeholders by improving data accuracy by \textbf{100\%} through enhanced validation and quality frameworks.}
+    \resumeItem{Integrated \textbf{on-premise, third-party, and Hadoop-based data sources} (\textbf{Oracle, Taleo, JSON, Avro, CSV, Parquet}) into \textbf{ADLS} via ADF connectors, enabling seamless enterprise-wide analytics.}
+    \resumeItem{Applied \textbf{Spark performance tuning techniques} (caching, partitioning, broadcast joins), reducing processing time by \textbf{20\%} for \textbf{2M+ daily records} across \textbf{Hadoop and Azure environments}.}
+  \resumeItemListEnd
+
+  \resumeSubheading
+  {TATA CONSULTANCY SERVICES}{WALGREENS (Oct 2021 -- Feb 2023)}
+  {Data Engineer}{Noida, India}
+
+  \resumeItemListStart
+    \resumeItem{Collaborated with business teams to deliver \textbf{enterprise reporting solutions} by processing large-scale datasets across ETL systems.}
+    \resumeItem{Developed and optimized \textbf{MapReduce programs} within the \textbf{Hadoop ecosystem} for large-scale text processing, reducing execution time by \textbf{90\%} (2 hours $\rightarrow$ 15 minutes).}
+    \resumeItem{Automated \textbf{data workflows} using \textbf{Python}, \textbf{HiveQL}, and \textbf{Shell Scripting}, improving operational efficiency by \textbf{50\%} and minimizing manual intervention.}
+    \resumeItem{Performed \textbf{data quality, consistency, and reconciliation checks} using \textbf{Hive}, \textbf{Impala}, and \textbf{Spark}, improving trustworthiness of analytical datasets by \textbf{30\%}.}
+    \resumeItem{Streamlined \textbf{ETL orchestration} by automating complex pipelines with \textbf{Python}, \textbf{HiveQL}, and \textbf{Shell}, reducing manual efforts by \textbf{40\%} and improving throughput by \textbf{60\%}.}
+    \resumeItem{Worked extensively on \textbf{Hadoop Distributed File System (HDFS)} for data ingestion and batch processing, laying the foundation for migration to modern \textbf{Azure-based architectures}.}
+  \resumeItemListEnd
+	  
+  \resumeSubHeadingListEnd
+%-------------------------------------------
+
+
+
+% ----------- Certifications -----------
+\section{Certifications}
+ \begin{itemize}[leftmargin=0.15in, label={}]
+  
+    \item{Generative AI (Udemy) \textbar{} 2025 \hfill
+    \href{https://www.udemy.com/certificate/UC-412f4ed7-5ae4-4964-a02b-4944ae58bbbc/}{\textcolor{blue}{View Certificate \faExternalLink}}}
+
+    \item{Databricks Fundamentals \textbar{} 2025 \hfill
+    \href{https://credentials.databricks.com/8e23b34d-2e9a-436b-ad75-4c047c53bf55#acc.ZUbGNQuH}{\textcolor{blue}{View Certificate \faExternalLink}}}
+    
+    \item{Azure Fundamentals (TCS Digital) \textbar{} 2025 \hfill
+    \href{https://drive.google.com/file/d/1j9oagnlV8IDNerikqXcg9S0tCgJEIu8T/view?usp=drive_link}{\textcolor{blue}{View Certificate \faExternalLink}}}
+    
+    \item{Python Programming (TCS Digital) \textbar{} 2022 \hfill
+    \href{https://drive.google.com/file/d/13DMcNhRNcbFE-joFHZPzwJelQUFm0IBI/view?usp=sharing}{\textcolor{blue}{View Certificate \faExternalLink}}}
+    
+    \item{Microsoft Certified: Azure Data Fundamentals (DP-900) \textbar{} Expected 2025 \hfill
+    \textcolor{blue}{\faHourglassHalf}}
+
+  \end{itemize}
+%-------------------------------------------
+
+
+
+% ----------- GitHub Sample Works -----------
+\section{Projects}
+  \begin{itemize}[leftmargin=0.15in, label={}]
+
+    \item{LeetCode SQL to PySpark (Top 50 Questions) \hfill
+    \href{https://github.com/himanshuclub88/LeetcodeSQL_usingPYSPARK}{\textcolor{blue}{View on GitHub \faExternalLink}}}
+
+    \item{DataLemur SQL to PySpark \hfill
+    \href{https://github.com/himanshuclub88/DatalemurSQL_usingPYSPARK}{\textcolor{blue}{View on GitHub \faExternalLink}}}
+
+    \item{DataLemur SQL to PySpark (RDD Implementation) \hfill
+    \href{https://github.com/himanshuclub88/DatalemurSQL_usingPySparkRDD}{\textcolor{blue}{View on GitHub \faExternalLink}}}
+
+    \item{Databricks Ecommerce analytics \hfill
+    \href{https://github.com/himanshuclub88/DATABRICKS-ECOMMERCE_ANALYTICS_DASHBOARDS}{\textcolor{blue}{View on GitHub \faExternalLink}}}
+
+    \item{Databricks ETL \hfill
+    \href{https://github.com/himanshuclub88/DATABRICKS-ETL}{\textcolor{blue}{View on GitHub \faExternalLink}}}
+
+  \end{itemize}
+%-------------------------------
+
+
+%-----------EDUCATION-----------
+\section{Education}
+  \resumeSubHeadingListStart
+    \resumeSubheading
+      {NIET}{Greater Noida, UP}
+      {Bachelor of Technology in Computer Science \& Engineering}{Aug 2017 -- Sep 2021}
+    \resumeSubheading
+      {ABC Public School}{Gorakhpur, UP}
+      {Senior Secondary School}{Apr 2015 -- Mar 2017}
+
+  \resumeSubHeadingListEnd
+%-------------------------------
+
+
+ 
+\end{document}
+
+%-- pdflatex Himanshu_2025.tex
