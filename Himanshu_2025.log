@@ -1,9 +1,9 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 24.1) (preloaded format=pdflatex 2025.9.5)  15 NOV 2025 23:46
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 24.1) (preloaded format=pdflatex 2025.9.5)  24 NOV 2025 19:02
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
-**c:/Users/himan/OneDrive/Documents/Resume/ResumeLatex/Himanshu_2025.tex
-(c:/Users/himan/OneDrive/Documents/Resume/ResumeLatex/Himanshu_2025.tex
+**c:/Study/ResumeLatex/Himanshu_2025.tex
+(c:/Study/ResumeLatex/Himanshu_2025.tex
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-01-04>
 (C:\Program Files\MiKTeX\tex/latex/base\article.cls
@@ -315,8 +315,8 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 
 {C:/Users/himan/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}{C:/Users/himan/AppData/Roaming/MiKTeX/fonts/enc/dvips/fontawesome/fontawesometwo.enc}]
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10.95> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 207.
-LaTeX Font Info:    Trying to load font information for U+fontawesomeone on input line 220.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 215.
+LaTeX Font Info:    Trying to load font information for U+fontawesomeone on input line 228.
  (C:\Users\himan\AppData\Roaming\MiKTeX\tex/latex/fontawesome\ufontawesomeone.fd
 File: ufontawesomeone.fd 2016/05/22 Font definitions for U/fontawesomeone.
 ) [2{C:/Users/himan/AppData/Roaming/MiKTeX/fonts/enc/dvips/fontawesome/fontawesomeone.enc}] (Himanshu_2025.aux)
@@ -329,16 +329,16 @@ Package rerunfilecheck Info: File `Himanshu_2025.out' has not changed.
  ) 
 Here is how much of TeX's memory you used:
  12340 strings out of 474486
- 192703 string characters out of 5753571
+ 192415 string characters out of 5753571
  1952542 words of memory out of 5000000
  34469 multiletter control sequences out of 15000+600000
  564907 words of font info for 62 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 75i,11n,79p,594b,558s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 75i,11n,79p,562b,558s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <C:/Users/himan/AppData/Roaming/MiKTeX/fonts/type1/public/fontawesome/FontAwesome.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx10.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmcsc10.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy6.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmti10.pfb>
-Output written on Himanshu_2025.pdf (2 pages, 145276 bytes).
+Output written on Himanshu_2025.pdf (2 pages, 146042 bytes).
 PDF statistics:
- 107 PDF objects out of 1000 (max. 8388607)
+ 109 PDF objects out of 1000 (max. 8388607)
  10 named destinations out of 1000 (max. 500000)
  57 words of extra memory for PDF output out of 10000 (max. 10000000)
 
