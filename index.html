@@ -71,7 +71,6 @@
             justify-content: center;
 
             background: rgba(25, 26, 28, 0.95);
-            border: 1px solid rgba(255, 255, 255, 0.10);
             border-radius: 10px;
 
             box-shadow: 0 6px 20px rgba(0, 0, 0, 0.30);
@@ -174,7 +173,6 @@
             color: #ffffff;
             background: #303134;
 
-            border: 1px solid rgba(255, 255, 255, 0.10);
             border-radius: 5px;
 
             font-size: 11px;
@@ -339,45 +337,37 @@
 
         .contact-border-orbit {
             position: absolute;
-            inset: -1px;
-            width: calc(100% + 2px);
-            height: calc(100% + 2px);
+            inset: 0;
+            width: 100%;
+            height: 100%;
             overflow: visible;
             pointer-events: none;
             z-index: 2;
         }
 
-        .contact-border-track {
-            fill: none;
-            stroke: rgba(150, 160, 170, 0.20);
-            stroke-width: 1.5;
-            vector-effect: non-scaling-stroke;
-        }
-
         .contact-border-runner {
             fill: none;
             stroke: var(--orbit-color, #62d9ff);
-            stroke-width: 2;
+            stroke-width: 1.8;
             stroke-linecap: round;
             vector-effect: non-scaling-stroke;
+            pointer-events: none;
 
-            /* One single bright segment around the border. */
-            stroke-dasharray: 14 86;
+            /* Exactly ONE bright dash. JS calculates the real perimeter. */
+            stroke-dasharray: 28 var(--border-gap, 570px);
             stroke-dashoffset: 0;
-
-            filter: drop-shadow(0 0 2px var(--orbit-color, #62d9ff));
             animation: none;
         }
 
         .custom-contact.border-running .contact-border-runner {
             animation:
-                border360 3s linear infinite,
-                borderColor 8s linear infinite;
+                border360 var(--orbit-duration, 25s) linear 1,
+                borderColor var(--orbit-duration, 25s) linear 1;
         }
 
         @keyframes border360 {
             from { stroke-dashoffset: 0; }
-            to   { stroke-dashoffset: -100; }
+            to   { stroke-dashoffset: calc(-1 * var(--border-length, 600px)); }
         }
 
         @keyframes borderColor {
@@ -388,13 +378,6 @@
             80%  { --orbit-color: #62d9ff; }
             100% { --orbit-color: #62d9ff; }
         }
-
-
-
-
-
-
-
 
 
    /* =========================================================
@@ -462,7 +445,7 @@
                   x="0.75" y="0.75"
                   width="98.5" height="98.5"
                   rx="10" ry="10"
-                  pathLength="100" />
+                  pathLength="400" />
         </svg>
 
 
@@ -612,17 +595,46 @@
      *
      * Change this to 5000 for 5 seconds, 6000 for 6 seconds, etc.
      */
-    const CONTACT_OPEN_TIME = 3500;
+    const CONTACT_OPEN_TIME = 6000;
 
     let collapseTimer;
 
+    function updateBorderGeometry() {
+        const svg = contactPanel.querySelector(".contact-border-orbit");
+        const rect = contactPanel.querySelector(".contact-border-runner");
+
+        if (!svg || !rect) return;
+
+        const width = contactPanel.clientWidth;
+        const height = contactPanel.clientHeight;
+
+        // Keep SVG user units equal to the actual panel dimensions.
+        svg.setAttribute("viewBox", `0 0 ${width} ${height}`);
+
+        rect.setAttribute("x", "1");
+        rect.setAttribute("y", "1");
+        rect.setAttribute("width", String(Math.max(0, width - 2)));
+        rect.setAttribute("height", String(Math.max(0, height - 2)));
+        rect.setAttribute("rx", "10");
+        rect.setAttribute("ry", "10");
+
+        const length = rect.getTotalLength();
+        const dashLength = Math.min(28, Math.max(12, length * 0.055));
+        const gapLength = Math.max(1, length - dashLength);
+
+        rect.style.strokeDasharray = `${dashLength}px ${gapLength}px`;
+        contactPanel.style.setProperty("--border-length", `${length}px`);
+        contactPanel.style.setProperty("--border-gap", `${gapLength}px`);
+    }
+
     function startBorderOrbit() {
+        updateBorderGeometry();
+
         contactPanel.style.setProperty(
             "--orbit-duration",
             `${CONTACT_OPEN_TIME}ms`
         );
 
-        // Reset the border to its starting point, then begin one 360° trip.
         contactPanel.classList.remove("border-running");
         void contactPanel.offsetWidth;
         contactPanel.classList.add("border-running");
@@ -678,6 +690,8 @@
 
     reopenContact.addEventListener("click", expandContact);
 
+    window.addEventListener("resize", updateBorderGeometry);
+
     document.addEventListener("keydown", (event) => {
         if (event.key === "Escape") {
             collapseContact();
@@ -689,7 +703,9 @@
        INITIAL STATE
        ========================================================= */
 
-    // Initial open state: start one complete orbit.
+    // Initial open state: calculate the perimeter first.
+    updateBorderGeometry();
+
     contactPanel.style.setProperty(
         "--orbit-duration",
         `${CONTACT_OPEN_TIME}ms`
