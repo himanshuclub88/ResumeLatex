@@ -330,6 +330,72 @@
             }
         }
 
+        /* =========================================================
+           MOVING BORDER
+           Only the bright border segment moves.
+           The panel itself never rotates.
+           One 360° trip uses the same duration as CONTACT_OPEN_TIME.
+           ========================================================= */
+
+        .contact-border-orbit {
+            position: absolute;
+            inset: -1px;
+            width: calc(100% + 2px);
+            height: calc(100% + 2px);
+            overflow: visible;
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        .contact-border-track {
+            fill: none;
+            stroke: rgba(150, 160, 170, 0.20);
+            stroke-width: 1.5;
+            vector-effect: non-scaling-stroke;
+        }
+
+        .contact-border-runner {
+            fill: none;
+            stroke: var(--orbit-color, #62d9ff);
+            stroke-width: 2;
+            stroke-linecap: round;
+            vector-effect: non-scaling-stroke;
+
+            /* One single bright segment around the border. */
+            stroke-dasharray: 14 86;
+            stroke-dashoffset: 0;
+
+            filter: drop-shadow(0 0 2px var(--orbit-color, #62d9ff));
+            animation: none;
+        }
+
+        .custom-contact.border-running .contact-border-runner {
+            animation:
+                border360 3s linear infinite,
+                borderColor 8s linear infinite;
+        }
+
+        @keyframes border360 {
+            from { stroke-dashoffset: 0; }
+            to   { stroke-dashoffset: -100; }
+        }
+
+        @keyframes borderColor {
+            0%   { --orbit-color: #62d9ff; }
+            20%  { --orbit-color: #6f8cff; }
+            40%  { --orbit-color: #a77cff; }
+            60%  { --orbit-color: #6fe0c0; }
+            80%  { --orbit-color: #62d9ff; }
+            100% { --orbit-color: #62d9ff; }
+        }
+
+
+
+
+
+
+
+
 
    /* =========================================================
    REDUCED MOTION
@@ -386,6 +452,19 @@
          ========================================================= -->
 
     <section class="custom-contact" id="contactPanel" aria-label="Contact and professional links">
+        <!-- Moving 360° border. The panel remains completely stationary. -->
+        <svg class="contact-border-orbit"
+             viewBox="0 0 100 100"
+             preserveAspectRatio="none"
+             aria-hidden="true">
+
+            <rect class="contact-border-runner"
+                  x="0.75" y="0.75"
+                  width="98.5" height="98.5"
+                  rx="10" ry="10"
+                  pathLength="100" />
+        </svg>
+
 
 
         <!-- CLOSE -->
@@ -482,21 +561,19 @@
                  PORTFOLIO
                  ================================================= -->
 
-            <a class="contact-link" href="https://himanshuclub88.github.io/portfolio/" target="_blank"
-                rel="noopener noreferrer" aria-label="Portfolio">
+                <a class="contact-link"
+                href="https://himanshuclub88.github.io/portfolio/"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Portfolio">
 
-                <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M9 4V3.5A1.5 1.5 0 0 1 10.5 2h3A1.5 1.5 0 0 1 15 3.5V4h4a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h4zm2 0h2v-.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5V4zm8 5h-4v1h-6V9H5v9h14V9zm-6 0h-2v1h2V9z"/>
+                    </svg>
 
-                    <path
-                        d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm6.93 6h-3.02a15.7 15.7 0 0 0-1.14-3.12A8.03 8.03 0 0 1 18.93 8zM12 4.04c.83 1.2 1.47 2.52 1.9 3.96h-3.8A13.7 13.7 0 0 1 12 4.04zM4.26 14A8.01 8.01 0 0 1 4 12c0-.7.1-1.37.26-2h3.38a16.6 16.6 0 0 0-.14 2c0 .68.05 1.34.14 2H4.26zm.81 2h3.02c.27 1.1.65 2.15 1.14 3.12A8.03 8.03 0 0 1 5.07 16zM8.09 8H5.07a8.03 8.03 0 0 1 4.16-3.12A15.7 15.7 0 0 0 8.09 8zM12 19.96A13.7 13.7 0 0 1 10.1 16h3.8a13.7 13.7 0 0 1-1.9 3.96zM14.34 14H9.66a14.6 14.6 0 0 1-.16-2c0-.68.06-1.35.16-2h4.68c.1.65.16 1.32.16 2s-.06 1.34-.16 2zm.43 5.12c.49-.97.87-2.02 1.14-3.12h3.02a8.03 8.03 0 0 1-4.16 3.12zM16.36 14c.09-.66.14-1.32.14-2s-.1-1.37-.26-2h3.38c.16.63.26 1.3.26 2s-.1 1.37-.26 2h-3.38z" />
+                    <span class="tooltip">Portfolio</span>
 
-                </svg>
-
-                <span class="tooltip">
-                    Portfolio
-                </span>
-
-            </a>
+                </a>
 
 
         </div>
@@ -524,73 +601,109 @@
 
 <script>
 
-const contactPanel = document.getElementById("contactPanel");
-const closeContact = document.getElementById("closeContact");
-const reopenContact = document.getElementById("reopenContact");
+    const contactPanel = document.getElementById("contactPanel");
+    const closeContact = document.getElementById("closeContact");
+    const reopenContact = document.getElementById("reopenContact");
 
-let collapseTimer;
+    /*
+     * ONE value controls both:
+     *   - how long the border takes to make one complete round
+     *   - how long the panel stays open
+     *
+     * Change this to 5000 for 5 seconds, 6000 for 6 seconds, etc.
+     */
+    const CONTACT_OPEN_TIME = 3500;
 
+    let collapseTimer;
 
-/* =========================================================
-   COLLAPSE
-   ========================================================= */
+    function startBorderOrbit() {
+        contactPanel.style.setProperty(
+            "--orbit-duration",
+            `${CONTACT_OPEN_TIME}ms`
+        );
 
-function collapseContact() {
-
-    clearTimeout(collapseTimer);
-
-    contactPanel.style.opacity = "0";
-    contactPanel.style.transform = "translateY(8px)";
-    contactPanel.style.visibility = "hidden";
-
-    reopenContact.style.display = "flex";
-}
-
-
-/* =========================================================
-   EXPAND
-   ========================================================= */
-
-function expandContact() {
-
-    clearTimeout(collapseTimer);
-
-    contactPanel.style.opacity = "1";
-    contactPanel.style.transform = "translateY(0)";
-    contactPanel.style.visibility = "visible";
-
-    reopenContact.style.display = "none";
-
-    collapseTimer = setTimeout(collapseContact, 3000);
-}
-
-
-/* =========================================================
-   EVENTS
-   ========================================================= */
-
-closeContact.addEventListener("click", collapseContact);
-
-reopenContact.addEventListener("click", expandContact);
-
-document.addEventListener("keydown", (event) => {
-
-    if (event.key === "Escape") {
-        collapseContact();
+        // Reset the border to its starting point, then begin one 360° trip.
+        contactPanel.classList.remove("border-running");
+        void contactPanel.offsetWidth;
+        contactPanel.classList.add("border-running");
     }
 
-});
+    /* =========================================================
+       COLLAPSE
+       ========================================================= */
+
+    function collapseContact() {
+
+        clearTimeout(collapseTimer);
+
+        // Stop the border immediately when the panel closes.
+        contactPanel.classList.remove("border-running");
+
+        contactPanel.style.opacity = "0";
+        contactPanel.style.transform = "translateY(8px)";
+        contactPanel.style.visibility = "hidden";
+
+        // Collapsed button is completely static.
+        reopenContact.style.display = "flex";
+    }
 
 
-/* =========================================================
-   INITIAL STATE
-   ========================================================= */
+    /* =========================================================
+       EXPAND
+       ========================================================= */
 
-collapseTimer = setTimeout(collapseContact, 3500);
+    function expandContact() {
+
+        clearTimeout(collapseTimer);
+
+        reopenContact.style.display = "none";
+
+        contactPanel.style.opacity = "1";
+        contactPanel.style.transform = "translateY(0)";
+        contactPanel.style.visibility = "visible";
+
+        // Start one fresh border revolution.
+        startBorderOrbit();
+
+        // Collapse at exactly the same time the border completes.
+        collapseTimer = setTimeout(collapseContact, CONTACT_OPEN_TIME);
+    }
+
+
+    /* =========================================================
+       EVENTS
+       ========================================================= */
+
+    closeContact.addEventListener("click", collapseContact);
+
+    reopenContact.addEventListener("click", expandContact);
+
+    document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape") {
+            collapseContact();
+        }
+    });
+
+
+    /* =========================================================
+       INITIAL STATE
+       ========================================================= */
+
+    // Initial open state: start one complete orbit.
+    contactPanel.style.setProperty(
+        "--orbit-duration",
+        `${CONTACT_OPEN_TIME}ms`
+    );
+
+    contactPanel.classList.add("border-running");
+
+    collapseTimer = setTimeout(
+        collapseContact,
+        CONTACT_OPEN_TIME
+    );
 
 </script>
 
 </body>
 
-</html>
 </html>
