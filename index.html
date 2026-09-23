@@ -279,31 +279,6 @@
 
 
         /* =========================================================
-   SUBTLE COLLAPSED BUTTON PULSE
-   ========================================================= */
-
-        @keyframes subtlePulse {
-
-            0%,
-            100% {
-                background: rgba(32, 33, 36, 0.95);
-            }
-
-            50% {
-                background: rgba(48, 49, 52, 0.97);
-            }
-        }
-
-        .contact-reopen {
-            animation: subtlePulse 2.8s ease-in-out infinite;
-        }
-
-        .contact-reopen:hover {
-            animation: none;
-        }
-
-
-        /* =========================================================
    MOBILE
    ========================================================= */
 
@@ -329,10 +304,8 @@
         }
 
         /* =========================================================
-           MOVING BORDER
-           Only the bright border segment moves.
-           The panel itself never rotates.
-           One 360° trip uses the same duration as CONTACT_OPEN_TIME.
+           SIMPLE BORDER
+           360° every 5 seconds, continuously while the panel is open.
            ========================================================= */
 
         .contact-border-orbit {
@@ -347,27 +320,21 @@
 
         .contact-border-runner {
             fill: none;
-            stroke: var(--orbit-color, #62d9ff);
-            stroke-width: 1.8;
+            stroke: #62d9ff;
+            stroke-width: 2;
             stroke-linecap: round;
             vector-effect: non-scaling-stroke;
             pointer-events: none;
-
-            /* Exactly ONE bright dash. JS calculates the real perimeter. */
-            stroke-dasharray: 28 var(--border-gap, 570px);
             stroke-dashoffset: 0;
-            animation: none;
         }
 
         .custom-contact.border-running .contact-border-runner {
-            animation:
-                border360 var(--orbit-duration, 25s) linear 1,
-                borderColor var(--orbit-duration, 25s) linear 1;
+            animation: border360 5s linear infinite;
         }
 
         @keyframes border360 {
             from { stroke-dashoffset: 0; }
-            to   { stroke-dashoffset: calc(-1 * var(--border-length, 600px)); }
+            to   { stroke-dashoffset: calc(-1 * var(--border-length)); }
         }
 
         @keyframes borderColor {
@@ -379,28 +346,6 @@
             100% { --orbit-color: #62d9ff; }
         }
 
-
-   /* =========================================================
-   REDUCED MOTION
-   ========================================================= */
-
-        @media (prefers-reduced-motion: reduce) {
-
-            .custom-contact,
-            .contact-link,
-            .contact-reopen,
-            .tooltip {
-                transition: none;
-            }
-
-            .custom-contact.border-running .contact-border-runner {
-                animation: none;
-            }
-
-            .contact-reopen {
-                animation: none;
-            }
-        }
     </style>
 </head>
 
@@ -445,7 +390,7 @@
                   x="0.75" y="0.75"
                   width="98.5" height="98.5"
                   rx="10" ry="10"
-                  pathLength="400" />
+                   />
         </svg>
 
 
@@ -583,89 +528,49 @@
 
 
 <script>
-
     const contactPanel = document.getElementById("contactPanel");
     const closeContact = document.getElementById("closeContact");
     const reopenContact = document.getElementById("reopenContact");
 
-    /*
-     * ONE value controls both:
-     *   - how long the border takes to make one complete round
-     *   - how long the panel stays open
-     *
-     * Change this to 5000 for 5 seconds, 6000 for 6 seconds, etc.
-     */
-    const CONTACT_OPEN_TIME = 6000;
-
+    const CONTACT_OPEN_TIME = 10000; // close after 10 seconds
     let collapseTimer;
 
-    function updateBorderGeometry() {
+    function setupBorder() {
         const svg = contactPanel.querySelector(".contact-border-orbit");
-        const rect = contactPanel.querySelector(".contact-border-runner");
-
-        if (!svg || !rect) return;
+        const border = contactPanel.querySelector(".contact-border-runner");
 
         const width = contactPanel.clientWidth;
         const height = contactPanel.clientHeight;
 
-        // Keep SVG user units equal to the actual panel dimensions.
         svg.setAttribute("viewBox", `0 0 ${width} ${height}`);
 
-        rect.setAttribute("x", "1");
-        rect.setAttribute("y", "1");
-        rect.setAttribute("width", String(Math.max(0, width - 2)));
-        rect.setAttribute("height", String(Math.max(0, height - 2)));
-        rect.setAttribute("rx", "10");
-        rect.setAttribute("ry", "10");
+        border.setAttribute("x", "1");
+        border.setAttribute("y", "1");
+        border.setAttribute("width", String(width - 2));
+        border.setAttribute("height", String(height - 2));
+        border.setAttribute("rx", "10");
+        border.setAttribute("ry", "10");
 
-        const length = rect.getTotalLength();
-        const dashLength = Math.min(28, Math.max(12, length * 0.055));
-        const gapLength = Math.max(1, length - dashLength);
+        const length = border.getTotalLength();
+        const dash = 28;
 
-        rect.style.strokeDasharray = `${dashLength}px ${gapLength}px`;
+        /* One dash + the exact remaining perimeter as the gap. */
+        border.style.strokeDasharray = `${dash}px ${length - dash}px`;
         contactPanel.style.setProperty("--border-length", `${length}px`);
-        contactPanel.style.setProperty("--border-gap", `${gapLength}px`);
     }
-
-    function startBorderOrbit() {
-        updateBorderGeometry();
-
-        contactPanel.style.setProperty(
-            "--orbit-duration",
-            `${CONTACT_OPEN_TIME}ms`
-        );
-
-        contactPanel.classList.remove("border-running");
-        void contactPanel.offsetWidth;
-        contactPanel.classList.add("border-running");
-    }
-
-    /* =========================================================
-       COLLAPSE
-       ========================================================= */
 
     function collapseContact() {
-
         clearTimeout(collapseTimer);
 
-        // Stop the border immediately when the panel closes.
         contactPanel.classList.remove("border-running");
-
         contactPanel.style.opacity = "0";
         contactPanel.style.transform = "translateY(8px)";
         contactPanel.style.visibility = "hidden";
 
-        // Collapsed button is completely static.
         reopenContact.style.display = "flex";
     }
 
-
-    /* =========================================================
-       EXPAND
-       ========================================================= */
-
     function expandContact() {
-
         clearTimeout(collapseTimer);
 
         reopenContact.style.display = "none";
@@ -674,51 +579,19 @@
         contactPanel.style.transform = "translateY(0)";
         contactPanel.style.visibility = "visible";
 
-        // Start one fresh border revolution.
-        startBorderOrbit();
+        setupBorder();
+        contactPanel.classList.add("border-running");
 
-        // Collapse at exactly the same time the border completes.
         collapseTimer = setTimeout(collapseContact, CONTACT_OPEN_TIME);
     }
 
-
-    /* =========================================================
-       EVENTS
-       ========================================================= */
-
     closeContact.addEventListener("click", collapseContact);
-
     reopenContact.addEventListener("click", expandContact);
 
-    window.addEventListener("resize", updateBorderGeometry);
-
-    document.addEventListener("keydown", (event) => {
-        if (event.key === "Escape") {
-            collapseContact();
-        }
-    });
-
-
-    /* =========================================================
-       INITIAL STATE
-       ========================================================= */
-
-    // Initial open state: calculate the perimeter first.
-    updateBorderGeometry();
-
-    contactPanel.style.setProperty(
-        "--orbit-duration",
-        `${CONTACT_OPEN_TIME}ms`
-    );
-
+    setupBorder();
     contactPanel.classList.add("border-running");
-
-    collapseTimer = setTimeout(
-        collapseContact,
-        CONTACT_OPEN_TIME
-    );
-
-</script>
+    collapseTimer = setTimeout(collapseContact, CONTACT_OPEN_TIME);
+</script></script>
 
 </body>
 
