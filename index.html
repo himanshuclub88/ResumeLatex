@@ -382,21 +382,24 @@
          ========================================================= -->
 
     <!-- <main class="pdf-container">
-
         <iframe class="pdf-viewer" src="https://drive.google.com/file/d/1te4aaZhP9t5yfjZIvVcba0Umi1ZrdtZp/preview"
             title="Himanshu Singh Resume">
         </iframe>
-
     </main> -->
 
-    <main class="pdf-container">
-
+    <!-- <main class="pdf-container">
         <iframe class="pdf-viewer" src="Himanshu_2026.pdf"
             title="Himanshu Singh Resume">
         </iframe>
+    </main> -->
 
+    <main class="pdf-container">
+        <iframe
+            class="pdf-viewer"
+            id="resumeViewer"
+            title="Himanshu Singh Resume">
+        </iframe>
     </main>
-
 
 
     <!-- =========================================================
@@ -552,11 +555,17 @@
 
 
 <script>
+
+    const pdfUrl = `Himanshu_2026.pdf?v=${Date.now()}`;
+    document.getElementById("resumeViewer").src = pdfUrl;
+
+    setTimeout(() => {
+
     const contactPanel = document.getElementById("contactPanel");
     const closeContact = document.getElementById("closeContact");
     const reopenContact = document.getElementById("reopenContact");
 
-    const CONTACT_OPEN_TIME = 5000; // close after 10 seconds
+    const CONTACT_OPEN_TIME = 10000; // close after 10 seconds
     let collapseTimer;
 
     function setupBorder() {
@@ -615,7 +624,9 @@
     setupBorder();
     contactPanel.classList.add("border-running");
     collapseTimer = setTimeout(collapseContact, CONTACT_OPEN_TIME);
-</script></script>
+
+    }, 500);
+</script>
 
 </body>
 
